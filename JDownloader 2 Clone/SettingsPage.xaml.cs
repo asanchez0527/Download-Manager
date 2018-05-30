@@ -16,8 +16,6 @@ using Windows.UI.Xaml.Navigation;
 using Windows.Storage.Pickers;
 using Windows.Storage;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace JDownloader_2_Clone
 {
 
@@ -26,6 +24,16 @@ namespace JDownloader_2_Clone
         public SettingsPage()
         {
             this.InitializeComponent();
+            Loaded += SettingsPageLoaded;
+        }
+
+        private void SettingsPageLoaded(object sender, RoutedEventArgs e)
+        {
+            ApplicationDataContainer AppSettings = ApplicationData.Current.LocalSettings;   
+            if (AppSettings.Values.ContainsKey("DownloadDirectory"))
+            {
+                CurrentDirectory.Text = (String)AppSettings.Values["DownloadDirectory"];
+            }
         }
 
         public DownloadViewModel ViewModel { get; set; }
@@ -140,7 +148,6 @@ namespace JDownloader_2_Clone
 
         private async void DownloadFolderPicker_Click(object sender, RoutedEventArgs e)
         {
-            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
             FolderPicker downloadPicker = new FolderPicker
             {
                 SuggestedStartLocation = PickerLocationId.Downloads,
@@ -149,13 +156,8 @@ namespace JDownloader_2_Clone
             downloadPicker.FileTypeFilter.Add("*");
 
             StorageFolder directory = await downloadPicker.PickSingleFolderAsync();
-
-            if (localSettings.Values["DownloadDirectory"] == null)
-            {
-                localSettings.Values["DownloadDirectory"] = directory.Path;
-            }
-
-            CurrentDirectory.Text = localSettings.Values["DownloadDirectory"].ToString();
+            ApplicationData.Current.LocalSettings.Values["DownloadDirectory"] = directory.Path;
+            CurrentDirectory.Text = (String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"];
         }
     }
 }
