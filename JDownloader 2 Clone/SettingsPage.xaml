@@ -1,0 +1,125 @@
+﻿<Page
+    x:Class="JDownloader_2_Clone.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:JDownloader_2_Clone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Name="LayoutGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        
+        <RelativePanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#EEF0EF">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Name="FileButton"
+                        Width="Auto"
+                        FontSize="14"
+                        Height="30" 
+                        Content="File"
+                        Background="#EEF0EF"
+                        RelativePanel.AlignLeftWithPanel="True">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Analyze Text with Links"/>
+                                <MenuFlyoutItem Text="Load Linkcontainer"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem Text="Backup"/>
+                                <MenuFlyoutItem x:Name="File_Restart" Text="Restart"/>
+                                <MenuFlyoutItem x:Name="File_Exit" Text="Exit" Click="File_Exit_Click"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button
+                        Name="SettingsButton"
+                        Grid.Row="0"
+                        Width="Auto"
+                        FontSize="14"
+                        Height="30"
+                        Content="Settings"
+                        Background="#EEF0EF" 
+                        RelativePanel.RightOf="FileButton">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Settings"/>
+                                <MenuFlyoutItem Text="My JDwonloader"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem Text="Max Chunks Per Download"/>
+                                <MenuFlyoutItem Text="Max Simultaneous Downloads"/>
+                                <MenuFlyoutItem Text="Max sim. Downloads per Hoster"/>
+                                <MenuFlyoutItem Text="Speed Limit"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button
+                        Name="ToolsButton"
+                        Width="Auto"
+                        FontSize="14"
+                        Height="30"
+                        Content="Tools"
+                        Background="#EEF0EF" 
+                        RelativePanel.RightOf="SettingsButton">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem Text="Windows"/>
+                                <MenuFlyoutItem Text="Extract Files"/>
+                                <MenuFlyoutItem Text="Bye-bye, Standby!"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button
+                        Name="HelpButton"
+                        Width="Auto"
+                        FontSize="14"
+                        Height="30"
+                        Content="Help"
+                        Background="#EEF0EF"
+                        RelativePanel.RightOf="ToolsButton">
+                        <Button.Flyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Name="Help_OnlineHelp" Text="Online Help" Click="Help_OnlineHelp_Click"/>
+                                <MenuFlyoutItem Text="Create a log"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem Text="Find Updates"/>
+                                <MenuFlyoutItem x:Name="Help_Changelog" Text="Changelog" Click="Help_Changelog_Click"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem x:Name="Help_Contribute" Text="Contribute" Click="Help_Contribute_Click"/>
+                                <MenuFlyoutItem Text="About JDownloader"/>
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        Name="AddDownloadButton"
+                        Width="Auto"
+                        Height="30"
+                        Content="Add Download"
+                        Background="#EEF0EF" Click="AddDownloadButton_Click"
+                     />
+                </StackPanel>
+            </StackPanel>
+        </RelativePanel>
+
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <TextBlock Padding="10" TextAlignment="Center" Text="Download Directory" TextWrapping="NoWrap" FontWeight="Normal" FontSize="12"/>
+                    <Button 
+                    Name="DownloadFolderPicker"
+                    Content="Pick Download Folder"
+                    Width="Auto"
+                    Height="30" Click="DownloadFolderPicker_Click"
+                    />
+                </StackPanel>
+                <TextBlock Name="CurrentDirectory"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
