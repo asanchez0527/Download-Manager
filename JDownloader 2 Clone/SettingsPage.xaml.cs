@@ -113,7 +113,20 @@ namespace JDownloader_2_Clone
 
         private async void AddDownloadButton_Click(object sender, RoutedEventArgs e)
         {
-            string input = await UsefulMethods.UsefulMethods.InputTextDialogAsync("Download Collector");
+            String input = null;
+            TextBox inputTextBox = new TextBox();
+            inputTextBox.AcceptsReturn = false;
+            inputTextBox.Height = 32;
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = inputTextBox;
+            dialog.Title = "Download Collector";
+            dialog.IsSecondaryButtonEnabled = true;
+            dialog.PrimaryButtonText = "Ok";
+            dialog.SecondaryButtonText = "Cancel";
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                input = inputTextBox.Text;
+            else { }
+
             bool isUrl = Uri.TryCreate(input, UriKind.Absolute, out Uri uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
             if (isUrl)
             {

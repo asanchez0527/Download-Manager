@@ -22,5 +22,16 @@ namespace JDownloader_2_Clone.UsefulMethods
             else
                 return "";
         }
+
+
+        public static async void ErrorMessage(String ErrorMessage)
+        {
+            ContentDialog error = new ContentDialog();
+            error.Content = ErrorMessage;
+            error.Title = "Error";
+            error.IsSecondaryButtonEnabled = false;
+            error.PrimaryButtonText = "Ok";
+            ContentDialogResult errorResult = await error.ShowAsync();
+        }
     }
 }

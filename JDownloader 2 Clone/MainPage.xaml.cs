@@ -93,36 +93,30 @@ namespace JDownloader_2_Clone
         private async void AddDownloadButton_Click(object sender, RoutedEventArgs e)
         {
             string input = await UsefulMethods.UsefulMethods.InputTextDialogAsync("Download Collector");
-            bool isUrl = Uri.TryCreate(input, UriKind.Absolute, out Uri uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
-            if (isUrl)
+            if (input.CompareTo("") == 0)
             {
-                bool LinkExists = await Downloader.UrlExists(new Uri(input));
-
-                if (LinkExists)
+            }
+            else
+            {
+                bool isUrl = Uri.TryCreate(input, UriKind.Absolute, out Uri uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+                if (isUrl)
                 {
-                    ViewModel.Downloads.Add(await Downloader.DownloadCreator(new Uri(input)));
+                    bool LinkExists = await Downloader.UrlExists(new Uri(input));
+
+                    if (LinkExists)
+                    {
+                        ViewModel.Downloads.Add(await Downloader.DownloadCreator(new Uri(input)));
+                    }
+                    else
+                    {
+                        UsefulMethods.UsefulMethods.ErrorMessage("Url does not exist.");
+                    }
                 }
                 else
                 {
-                    ContentDialog error = new ContentDialog();
-                    error.Content = "URL does not exist.";
-                    error.Title = "Error";
-                    error.IsSecondaryButtonEnabled = false;
-                    error.PrimaryButtonText = "Ok";
-
-                    ContentDialogResult errorResult = await error.ShowAsync();
+                    UsefulMethods.UsefulMethods.ErrorMessage("Please enter a valid URL.");
                 }
-            } else
-            {
-                ContentDialog error = new ContentDialog();
-                error.Content = "Please enter a valid URL.";
-                error.Title = "Error";
-                error.IsSecondaryButtonEnabled = false;
-                error.PrimaryButtonText = "Ok";
-
-                ContentDialogResult errorResult = await error.ShowAsync();
             }
-
         }
 
         private void Settings_Settings_Click(object sender, RoutedEventArgs e)
