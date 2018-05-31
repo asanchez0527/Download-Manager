@@ -19,37 +19,21 @@ namespace JDownloader_2_Clone
 
         private async void Help_OnlineHelp_Click(object sender, RoutedEventArgs e)
         {
-            String UriToLaunch = @"http://jdownloader.org/knowledge/index?s=lng_en";
-            var uri = new Uri(UriToLaunch);
+            Uri uri = new Uri(@"http://jdownloader.org/knowledge/index?s=lng_en");
             var success = await Windows.System.Launcher.LaunchUriAsync(uri);
             if (!success)
             {
-                ContentDialog UriLaunchError = new ContentDialog
-                {
-                    Title = "Error",
-                    Content = "Could not open url. Try again.",
-                    CloseButtonText = "Ok"
-                };
-
-                ContentDialogResult errorResult = await UriLaunchError.ShowAsync();
+                UsefulMethods.UsefulMethods.ErrorMessage("Could not open URL. Please try again.");
             }
         }
 
         private async void Help_Changelog_Click(object sender, RoutedEventArgs e)
         {
-            String UriToLaunch = @"https://svn.jdownloader.org/projects/jd/activity";
-            var uri = new Uri(UriToLaunch);
+            Uri uri = new Uri(@"https://svn.jdownloader.org/projects/jd/activity");
             var success = await Windows.System.Launcher.LaunchUriAsync(uri);
             if (!success)
             {
-                ContentDialog UriLaunchError = new ContentDialog
-                {
-                    Title = "Error",
-                    Content = "Could not open url. Try again.",
-                    CloseButtonText = "Ok"
-                };
-
-                ContentDialogResult errorResult = await UriLaunchError.ShowAsync();
+                UsefulMethods.UsefulMethods.ErrorMessage("Could not open URL. Please try again.");
             }
         }
 
@@ -57,8 +41,9 @@ namespace JDownloader_2_Clone
         {
             ContentDialog donate = new ContentDialog
             {
-                Title = "The JDownloader project needs your help!",
-                Content = "If you are a satisfied user of JDownloader, please think about contributing to this project. JDownloader is the result of daily hard work since more than 8 years. We need your help to keep it free of charge, free of advertising, free of installer bundles and to improve JDownloader even more. Moreover, donating is a good way to tell us what modules we should focus our work on.",
+                Title = "Donation",
+                Content = "This application is the result of various months of work and to help keep " +
+                "it free of charge, donations to the developper would be greatly valued.",
                 CloseButtonText = "Cancel",
                 PrimaryButtonText = "Continue",
                 DefaultButton = ContentDialogButton.Primary
@@ -68,19 +53,11 @@ namespace JDownloader_2_Clone
 
             if (result == ContentDialogResult.Primary)
             {
-                String UriToLaunch = @"https://my.jdownloader.org/contribute/#/?ref=jdownloader";
-                var uri = new Uri(UriToLaunch);
+                Uri uri = new Uri(@"https://my.jdownloader.org/contribute/#/?ref=jdownloader");
                 var success = await Windows.System.Launcher.LaunchUriAsync(uri);
                 if (!success)
                 {
-                    ContentDialog UriLaunchError = new ContentDialog
-                    {
-                        Title = "Error",
-                        Content = "Could not open url. Try again.",
-                        CloseButtonText = "Ok"
-                    };
-
-                    ContentDialogResult errorResult = await UriLaunchError.ShowAsync();
+                    UsefulMethods.UsefulMethods.ErrorMessage("Could not open URL. Please try again.");
                 }
             }
         }
@@ -93,9 +70,7 @@ namespace JDownloader_2_Clone
         private async void AddDownloadButton_Click(object sender, RoutedEventArgs e)
         {
             string input = await UsefulMethods.UsefulMethods.InputTextDialogAsync("Download Collector");
-            if (input.CompareTo("") == 0)
-            {
-            }
+            if (input.CompareTo("") == 0){}
             else
             {
                 bool isUrl = Uri.TryCreate(input, UriKind.Absolute, out Uri uriResult) && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
@@ -126,12 +101,13 @@ namespace JDownloader_2_Clone
 
         private void DownloadsPageNavigator_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(MainPage));
         }
 
         private void SettingsPageNavigator_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SettingsPage));
         }
+
+        
     }
 }

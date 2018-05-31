@@ -40,11 +40,13 @@ namespace JDownloader_2_Clone
 
         public static async Task<Download> DownloadCreator(Uri url)
         {
-            //Get File Size
             Download finalizedDownload = new Download
             {
+                //get file size
                 DownloadSize = await FileSize(url),
+                //get download name
                 DownloadName = await UsefulMethods.UsefulMethods.InputTextDialogAsync("Enter the name of the file: "),
+                //get hoster
                 Hoster = await HosterName(url)
             };
             return finalizedDownload;
@@ -74,8 +76,6 @@ namespace JDownloader_2_Clone
                 return response.ResponseUri.Host;
             }
         }
-
-
 
     }
 }

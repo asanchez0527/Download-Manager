@@ -141,7 +141,6 @@
 
         <telerikGrid:RadDataGrid Grid.Row="1" Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{x:Bind ViewModel.Downloads}" UserGroupMode="Disabled">
             <telerikGrid:RadDataGrid.Columns>
-                
                 <telerikGrid:DataGridTemplateColumn Header="Name">
                     <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
                         <DataTemplate x:DataType="ViewModel:Download">
@@ -205,7 +204,6 @@
                         </DataTemplate>
                     </telerikGrid:DataGridTemplateColumn.CellContentTemplate>
                 </telerikGrid:DataGridTemplateColumn>
-
             </telerikGrid:RadDataGrid.Columns>
         </telerikGrid:RadDataGrid>
 
