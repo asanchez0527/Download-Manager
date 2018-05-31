@@ -33,6 +33,7 @@ namespace JDownloader_2_Clone.ViewModels
     }
     
     public class Download{
+        public Uri DownloadUrl { get; set; }
         public String DownloadName { get; set; }
         public ByteSize DownloadSize { get; set; }
         public String Hoster { get; set; }

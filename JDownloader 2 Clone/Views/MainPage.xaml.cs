@@ -81,6 +81,7 @@ namespace JDownloader_2_Clone
                     if (LinkExists)
                     {
                         ViewModel.Downloads.Add(await Downloader.DownloadCreator(new Uri(input)));
+                        Downloader.DownloadStart(ViewModel.Downloads[ViewModel.Downloads.Count - 1]);
                     }
                     else
                     {

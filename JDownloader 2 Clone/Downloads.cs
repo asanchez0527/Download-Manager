@@ -7,6 +7,9 @@ using JDownloader_2_Clone.ViewModels;
 using JDownloader_2_Clone.UsefulMethods;
 using Windows.UI.Xaml.Controls;
 using Windows.Storage;
+using System.IO;
+using Windows.Networking.BackgroundTransfer;
+using Windows.Foundation;
 
 namespace JDownloader_2_Clone
 {
@@ -43,6 +46,8 @@ namespace JDownloader_2_Clone
         {
             Download finalizedDownload = new Download
             {
+                //set download URL
+                DownloadUrl = url,
                 //get file size
                 DownloadSize = await FileSize(url),
                 //get download name
@@ -53,6 +58,25 @@ namespace JDownloader_2_Clone
                 SaveTo = (String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"],
             };
             return finalizedDownload;
+        }
+
+        public static async void DownloadStart(Download x)
+        {
+            try
+            {
+                //StorageFolder destinationFolder = await StorageFolder.GetFolderFromPathAsync((String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"]);
+                StorageFile destinationFile = await DownloadsFolder.CreateFileAsync(x.DownloadName);
+                BackgroundDownloader downloader = new BackgroundDownloader();
+                DownloadOperation download = downloader.CreateDownload(x.DownloadUrl, destinationFile);
+                await download.StartAsync();
+                x.Status = "downloading";
+                x.Speed = download.Progress;
+
+            } catch (Exception ex)
+            {
+                
+            }
+            
         }
 
         private static async Task<ByteSize> FileSize(Uri url)
@@ -78,6 +102,11 @@ namespace JDownloader_2_Clone
             {
                 return response.ResponseUri.Host;
             }
+        }
+
+        private static async Task<String> TimeRemaining(Download download)
+        {
+            return "";
         }
 
     }
