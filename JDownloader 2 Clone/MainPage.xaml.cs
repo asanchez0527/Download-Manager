@@ -129,5 +129,15 @@ namespace JDownloader_2_Clone
         {
             this.Frame.Navigate(typeof(SettingsPage));
         }
+
+        private void DownloadsPageNavigator_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
+
+        private void SettingsPageNavigator_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsPage));
+        }
     }
 }

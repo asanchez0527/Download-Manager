@@ -11,10 +11,10 @@
 
     <Grid Name="LayoutGrid">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        
+
         <RelativePanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#EEF0EF">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
@@ -22,7 +22,7 @@
                         Name="FileButton"
                         Width="Auto"
                         FontSize="14"
-                        Height="auto" 
+                        Height="30" 
                         Content="File"
                         Background="#EEF0EF"
                         RelativePanel.AlignLeftWithPanel="True">
@@ -42,13 +42,13 @@
                         Grid.Row="0"
                         Width="Auto"
                         FontSize="14"
-                        Height="auto"
+                        Height="30"
                         Content="Settings"
                         Background="#EEF0EF" 
                         RelativePanel.RightOf="FileButton">
                         <Button.Flyout>
                             <MenuFlyout>
-                                <MenuFlyoutItem Text="Settings"/>
+                                <MenuFlyoutItem Name="Settings_Settings" Text="Settings" Click="Settings_Settings_Click"/>
                                 <MenuFlyoutItem Text="My JDwonloader"/>
                                 <MenuFlyoutSeparator/>
                                 <MenuFlyoutItem Text="Max Chunks Per Download"/>
@@ -62,7 +62,7 @@
                         Name="ToolsButton"
                         Width="Auto"
                         FontSize="14"
-                        Height="auto"
+                        Height="30"
                         Content="Tools"
                         Background="#EEF0EF" 
                         RelativePanel.RightOf="SettingsButton">
@@ -78,7 +78,7 @@
                         Name="HelpButton"
                         Width="Auto"
                         FontSize="14"
-                        Height="auto"
+                        Height="30"
                         Content="Help"
                         Background="#EEF0EF"
                         RelativePanel.RightOf="ToolsButton">
@@ -96,12 +96,11 @@
                         </Button.Flyout>
                     </Button>
                 </StackPanel>
-                
                 <StackPanel Orientation="Horizontal">
                     <Button
                         Name="AddDownloadButton"
                         Width="Auto"
-                        Height="Auto"
+                        Height="30"
                         Content="Add Download"
                         Background="#EEF0EF" Click="AddDownloadButton_Click"
                      />
@@ -111,14 +110,15 @@
                         x:Name="DownloadsPageNavigator"
                         Width="Auto"
                         Height="Auto"
-                        Content="Downloads Page"
+                        Content="Downloads Page" Click="DownloadsPageNavigator_Click"
                         />
 
                     <Button
                         x:Name="SettingsPageNavigator"
+                        Margin="10"
                         Width="Auto"
                         Height="Auto"
-                        Content="Downloads Page"
+                        Content="Settings Page" Click="SettingsPageNavigator_Click"
                         />
                 </StackPanel>
             </StackPanel>

@@ -24,7 +24,7 @@
     
     <Grid Name="LayoutGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -119,21 +119,25 @@
                         Background="#EEF0EF" Click="AddDownloadButton_Click"
                      />
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button
+                        x:Name="DownloadsPageNavigator"
+                        Width="Auto"
+                        Height="Auto"
+                        Content="Downloads Page" Click="DownloadsPageNavigator_Click"
+                        />
+
+
+                    <Button
+                        x:Name="SettingsPageNavigator"
+                        Margin="10"
+                        Width="Auto"
+                        Height="Auto"
+                        Content="Settings Page" Click="SettingsPageNavigator_Click"
+                        />
+                </StackPanel>
             </StackPanel>
         </RelativePanel>
-        
-        <!--
-        <Grid Grid.Row="1">
-            <ListView ItemsSource="{x:Bind ViewModel.Downloads}" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <ListView.ItemTemplate>
-                    <DataTemplate x:DataType="ViewModel:Download">
-                        <TextBlock Text="{x:Bind DownloadName}"/>
-                    </DataTemplate>
-
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-        -->
 
         <telerikGrid:RadDataGrid Grid.Row="1" Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{x:Bind ViewModel.Downloads}" UserGroupMode="Disabled">
             <telerikGrid:RadDataGrid.Columns>

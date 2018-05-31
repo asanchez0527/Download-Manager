@@ -159,5 +159,21 @@ namespace JDownloader_2_Clone
             ApplicationData.Current.LocalSettings.Values["DownloadDirectory"] = directory.Path;
             CurrentDirectory.Text = (String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"];
         }
+
+        private void Settings_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsPage));
+        }
+
+
+        private void SettingsPageNavigator_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(SettingsPage));
+        }
+
+        private void DownloadsPageNavigator_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
     }
 }
