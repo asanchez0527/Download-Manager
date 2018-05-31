@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ByteSizeLib;
 using Windows.ApplicationModel;
+using Windows.Storage;
 
 namespace JDownloader_2_Clone.ViewModels
 {
@@ -26,32 +27,20 @@ namespace JDownloader_2_Clone.ViewModels
                 Speed = "speed",
                 ETA = "ETA",
                 BytesLoaded = "5",
-                SaveTo = "SaveTo"
-            });
-
-            this.Downloads.Add(new Download()
-            {
-                DownloadName = "name2",
-                DownloadSize = ByteSize.FromBits(45411),
-                Hoster = "hoster",
-                Status = "status",
-                Speed = "speed",
-                ETA = "ETA",
-                BytesLoaded = "5",
-                SaveTo = "SaveTo"
+                SaveTo = (String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"],
             });
         }
     }
     
     public class Download{
-        public string DownloadName { get; set; }
+        public String DownloadName { get; set; }
         public ByteSize DownloadSize { get; set; }
-        public string Hoster { get; set; }
-        public string Status { get; set; }
-        public string Speed { get; set; }
-        public string ETA { get; set; }
-        public string BytesLoaded { get; set; }
-        public string SaveTo { get; set; }
+        public String Hoster { get; set; }
+        public String Status { get; set; }
+        public String Speed { get; set; }
+        public String ETA { get; set; }
+        public String BytesLoaded { get; set; }
+        public String SaveTo { get; set; }
 
         public Download()
         {

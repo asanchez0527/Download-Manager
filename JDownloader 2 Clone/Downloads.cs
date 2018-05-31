@@ -6,6 +6,7 @@ using System.Diagnostics;
 using JDownloader_2_Clone.ViewModels;
 using JDownloader_2_Clone.UsefulMethods;
 using Windows.UI.Xaml.Controls;
+using Windows.Storage;
 
 namespace JDownloader_2_Clone
 {
@@ -47,7 +48,9 @@ namespace JDownloader_2_Clone
                 //get download name
                 DownloadName = await UsefulMethods.UsefulMethods.InputTextDialogAsync("Enter the name of the file: "),
                 //get hoster
-                Hoster = await HosterName(url)
+                Hoster = await HosterName(url),
+                //specify saving location
+                SaveTo = (String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"],
             };
             return finalizedDownload;
         }
