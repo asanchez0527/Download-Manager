@@ -4,6 +4,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using JDownloader_2_Clone.ViewModels;
 using JDownloader_2_Clone.UsefulMethods;
+using Windows.Storage;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace JDownloader_2_Clone
 {
@@ -17,6 +19,7 @@ namespace JDownloader_2_Clone
 
         public void MainPageLoaded(object sender, RoutedEventArgs e)
         {
+            testview.Items.Add("hrllo");
         }
 
         public DownloadViewModel ViewModel { get; set; }
@@ -85,7 +88,6 @@ namespace JDownloader_2_Clone
                     if (LinkExists)
                     {
                         ViewModel.Downloads.Add(await Downloader.DownloadCreator(new Uri(input)));
-                        //Downloader.DownloadStart(ViewModel.Downloads[ViewModel.Downloads.Count - 1]);
                     }
                     else
                     {
@@ -113,9 +115,23 @@ namespace JDownloader_2_Clone
             this.Frame.Navigate(typeof(SettingsPage));
         }
 
-        private void DataGrid_ItemClick(object sender, ItemClickEventArgs e)
+        private async void DataGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
+            //UsefulMethods.UsefulMethods.ErrorMessage("test");
+            Downloader downloader = new Downloader();
+            await downloader.DownloadFileAsync((Download)e.ClickedItem);
+        }
 
+        private void Grid_RightTapped(object sender, Windows.UI.Xaml.Input.RightTappedRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+            flyoutBase.ShowAt(senderElement);
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Downloads.Remove(e.OriginalSource as Download);
         }
     }
 }

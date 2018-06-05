@@ -65,12 +65,12 @@ namespace JDownloader_2_Clone
         CancellationTokenSource cancellationToken;
         BackgroundDownloader downloader = new BackgroundDownloader();
 
-        public async Task<StorageFile> DownloadFileAsync(Download download, StorageFolder DownloadLocation)
+        public async Task<StorageFile> DownloadFileAsync(Download download)
         {
             StorageFile file = null;
-            if (DownloadLocation != null)
+            if (download != null)
             {
-                file = await DownloadLocation.CreateFileAsync(download.DownloadName, CreationCollisionOption.GenerateUniqueName);
+                file = await DownloadsFolder.CreateFileAsync(download.DownloadName, CreationCollisionOption.GenerateUniqueName);
                 downloadOperation = downloader.CreateDownload(download.DownloadUrl, file);
                 cancellationToken = new CancellationTokenSource();
 

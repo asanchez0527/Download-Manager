@@ -15,21 +15,6 @@ namespace JDownloader_2_Clone.ViewModels
         private Download defaultDownload = new Download();
         public Download DefaultDownload { get { return this.defaultDownload; } }
         public ObservableCollection<Download> Downloads { get { return this.downloads; } }
-
-        public DownloadViewModel()
-        {
-            this.Downloads.Add(new Download()
-            {
-                DownloadName = "name",
-                DownloadSize = ByteSize.FromBits(45411),
-                Hoster = "hoster",
-                Status = "status",
-                Speed = "speed",
-                ETA = "ETA",
-                BytesLoaded = "5",
-                SaveTo = (String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"],
-            });
-        }
     }
     
     public class Download{
