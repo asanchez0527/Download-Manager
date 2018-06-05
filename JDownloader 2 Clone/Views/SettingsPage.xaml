@@ -5,6 +5,7 @@
     xmlns:local="using:JDownloader_2_Clone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerikNumericBox ="using:Telerik.UI.Xaml.Controls.Input"
     mc:Ignorable="d"
     Loaded="SettingsPageLoaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -132,11 +133,10 @@
                     <TextBlock x:Name="CurrentDirectory" Text="C:/" Margin="10,0,5,0" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Button Margin="10,0,0,0" x:Name="DownloadFolderPicker" Content="Change Location" Click="DownloadFolderPicker_Click"/>
                 </StackPanel>
-
                 <TextBlock Margin="10,10,10,0" Text="Download Management" FontWeight="SemiBold" FontSize="14" TextDecorations="Underline"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="10,5,10,0" Text="Max. Simultaneous Downloads "/>
-                    <TextBox x:Name="MaximumDownloads" InputScope="Number" PlaceholderText="Between 1 and 20" AcceptsReturn="True"/>
+                    <telerikNumericBox:RadNumericBox x:Name="MaximumDownloads" Maximum="20" Minimum="1" IsEditable="False"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="10,5,10,0" Text="Remove Finished Downloads" HorizontalAlignment="Center" VerticalAlignment="Center"/>

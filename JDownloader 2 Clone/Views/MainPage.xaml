@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:telerikGrid ="using:Telerik.UI.Xaml.Controls.Grid"
+    Loaded="MainPageLoaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -139,7 +140,59 @@
             </StackPanel>
         </RelativePanel>
 
-        <telerikGrid:RadDataGrid Grid.Row="1" Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{x:Bind ViewModel.Downloads}" UserGroupMode="Disabled">
+        <ListView x:Name="DataGrid" Grid.Row="1"  ItemsSource="{x:Bind ViewModel.Downloads}" ItemClick="DataGrid_ItemClick" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <Grid Padding="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="125"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="Name"/>
+                        <TextBlock Grid.Column="1" Text="Size"/>
+                        <TextBlock Grid.Column="2" Text="Hoster"/>
+                        <TextBlock Grid.Column="3" Text="Status"/>
+                        <TextBlock Grid.Column="4" Text="Speed"/>
+                        <TextBlock Grid.Column="5" Text="ETA"/>
+                        <TextBlock Grid.Column="6" Text="Bytes Loaded"/>
+                        <TextBlock Grid.Column="7" Text="Save To"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="ViewModel:Download">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="125"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{x:Bind DownloadName}"/>
+                        <TextBlock Grid.Column="1" Text="{x:Bind DownloadSize}"/>
+                        <TextBlock Grid.Column="2" Text="{x:Bind Hoster}"/>
+                        <TextBlock Grid.Column="3" Text="{x:Bind Status}"/>
+                        <TextBlock Grid.Column="4" Text="{x:Bind Speed}"/>
+                        <TextBlock Grid.Column="5" Text="{x:Bind ETA}"/>
+                        <TextBlock Grid.Column="6" Text="{x:Bind BytesLoaded}"/>
+                        <TextBlock Grid.Column="7" Text="{x:Bind SaveTo}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!--
+                <telerikGrid:RadDataGrid Grid.Row="1" Name="DataGrid" AutoGenerateColumns="False" ItemsSource="{x:Bind ViewModel.Downloads}" UserGroupMode="Disabled">
             <telerikGrid:RadDataGrid.Columns>
                 <telerikGrid:DataGridTemplateColumn Header="Name">
                     <telerikGrid:DataGridTemplateColumn.CellContentTemplate>
@@ -207,6 +260,8 @@
             </telerikGrid:RadDataGrid.Columns>
         </telerikGrid:RadDataGrid>
 
+        -->
+        
         <RelativePanel Grid.Row="2" Background="#EEF0EF">
         </RelativePanel>
 

@@ -10,6 +10,7 @@ using Windows.Storage;
 using System.IO;
 using Windows.Networking.BackgroundTransfer;
 using Windows.Foundation;
+using System.Threading;
 
 namespace JDownloader_2_Clone
 {
@@ -60,23 +61,67 @@ namespace JDownloader_2_Clone
             return finalizedDownload;
         }
 
-        public static async void DownloadStart(Download x)
+        DownloadOperation downloadOperation;
+        CancellationTokenSource cancellationToken;
+        BackgroundDownloader downloader = new BackgroundDownloader();
+
+        public async Task<StorageFile> DownloadFileAsync(Download download, StorageFolder DownloadLocation)
         {
+            StorageFile file = null;
+            if (DownloadLocation != null)
+            {
+                file = await DownloadLocation.CreateFileAsync(download.DownloadName, CreationCollisionOption.GenerateUniqueName);
+                downloadOperation = downloader.CreateDownload(download.DownloadUrl, file);
+                cancellationToken = new CancellationTokenSource();
+
+                try
+                {
+                    download.Status = "downloading";
+                    await downloadOperation.StartAsync().AsTask(cancellationToken.Token);
+                    download.Status = "complete";
+                } catch (TaskCanceledException)
+                {
+                    await downloadOperation.ResultFile.DeleteAsync();
+                    downloadOperation = null;
+                    download.Status = "cancelled";
+                }
+            }
+            return file;
+        }
+
+        public void CancelDownload()
+        {
+            cancellationToken.Cancel();
+            cancellationToken.Dispose();
+        }
+
+        public void PauseDownload(Download download)
+        {
+            download.Status = "paused";
             try
             {
-                //StorageFolder destinationFolder = await StorageFolder.GetFolderFromPathAsync((String)ApplicationData.Current.LocalSettings.Values["DownloadDirectory"]);
-                StorageFile destinationFile = await DownloadsFolder.CreateFileAsync(x.DownloadName);
-                BackgroundDownloader downloader = new BackgroundDownloader();
-                DownloadOperation download = downloader.CreateDownload(x.DownloadUrl, destinationFile);
-                await download.StartAsync();
-                x.Status = "downloading";
-                x.Speed = download.Progress;
-
-            } catch (Exception ex)
+                downloadOperation.Pause();
+            } catch (InvalidOperationException)
             {
-                
+                UsefulMethods.UsefulMethods.ErrorMessage("Couldn't pause the download.");
             }
-            
+        }
+
+        public void ResumeDownload(Download download)
+        {
+            download.Status = "downloading";
+            try
+            {
+                downloadOperation.Resume();
+            } catch (InvalidOperationException)
+            {
+                UsefulMethods.UsefulMethods.ErrorMessage("Couldn't resume the download.");
+            }
+        }
+
+        private static void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private static async Task<ByteSize> FileSize(Uri url)
@@ -102,11 +147,6 @@ namespace JDownloader_2_Clone
             {
                 return response.ResponseUri.Host;
             }
-        }
-
-        private static async Task<String> TimeRemaining(Download download)
-        {
-            return "";
         }
 
     }

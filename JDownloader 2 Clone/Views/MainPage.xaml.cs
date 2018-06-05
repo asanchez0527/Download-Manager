@@ -15,6 +15,10 @@ namespace JDownloader_2_Clone
             this.ViewModel = new DownloadViewModel();
         }
 
+        public void MainPageLoaded(object sender, RoutedEventArgs e)
+        {
+        }
+
         public DownloadViewModel ViewModel { get; set; }
 
         private async void Help_OnlineHelp_Click(object sender, RoutedEventArgs e)
@@ -81,7 +85,7 @@ namespace JDownloader_2_Clone
                     if (LinkExists)
                     {
                         ViewModel.Downloads.Add(await Downloader.DownloadCreator(new Uri(input)));
-                        Downloader.DownloadStart(ViewModel.Downloads[ViewModel.Downloads.Count - 1]);
+                        //Downloader.DownloadStart(ViewModel.Downloads[ViewModel.Downloads.Count - 1]);
                     }
                     else
                     {
@@ -109,6 +113,9 @@ namespace JDownloader_2_Clone
             this.Frame.Navigate(typeof(SettingsPage));
         }
 
-        
+        private void DataGrid_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
+        }
     }
 }

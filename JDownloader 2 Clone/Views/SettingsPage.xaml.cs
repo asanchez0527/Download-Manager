@@ -34,6 +34,7 @@ namespace JDownloader_2_Clone
             {
                 CurrentDirectory.Text = (String)AppSettings.Values["DownloadDirectory"];
             }
+
         }
 
         public DownloadViewModel ViewModel { get; set; }
