@@ -126,16 +126,13 @@ namespace JDownloader_2_Clone
 
         private static async Task<ByteSize> FileSize(Uri url)
         {
-            ByteSize fileSize;
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.AllowAutoRedirect = true;
 
             using (var response = (HttpWebResponse) await request.GetResponseAsync())
             {
-                long len = response.ContentLength;
-                fileSize = ByteSize.FromBytes(len);
+                return ByteSize.FromBytes(response.ContentLength);
             }
-            return fileSize;
         }
 
         private static async Task<String> HosterName(Uri url)
@@ -146,6 +143,16 @@ namespace JDownloader_2_Clone
             using (var response = (HttpWebResponse)await request.GetResponseAsync())
             {
                 return response.ResponseUri.Host;
+            }
+        }
+
+        private static async Task<String> FileExtension(Uri url)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            using (HttpWebResponse response = (HttpWebResponse) await request.GetResponseAsync())
+            {
+                return response.ContentType;
             }
         }
 

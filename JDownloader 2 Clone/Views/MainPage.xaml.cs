@@ -19,7 +19,6 @@ namespace JDownloader_2_Clone
 
         public void MainPageLoaded(object sender, RoutedEventArgs e)
         {
-            testview.Items.Add("hrllo");
         }
 
         public DownloadViewModel ViewModel { get; set; }
