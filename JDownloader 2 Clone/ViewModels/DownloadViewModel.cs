@@ -30,6 +30,7 @@ namespace JDownloader_2_Clone.ViewModels
 
         public Download()
         {
+            //random data to test display
             this.DownloadName = "Car";
             this.DownloadSize = ByteSize.FromBits(50000);
             this.Hoster = "Google Drive";
