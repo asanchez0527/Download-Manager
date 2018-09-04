@@ -1,4 +1,4 @@
-# Projects
+# Download-Manager
 [WIP] Download Manager for UWP.
 
 This is meant to be a download manager created from scratch in only UWP C# for the windows platform.
